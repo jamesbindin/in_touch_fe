@@ -49,11 +49,11 @@ export default class Users extends Component {
 
     changeMessageText(response){
         let message = response.data.message
-        let messageClass = 'msg-success'
+        let messageClass = 'message-card--success'
 
         if(!response.data.success && typeof message != 'string'){
             message = message[Object.keys(message)[0]].toString()
-            messageClass = 'msg-fail'
+            messageClass = 'message-card--fail'
         }  
 
         this.setState({
@@ -163,50 +163,85 @@ export default class Users extends Component {
         const {messageText} = this.state
         return (
             <>
+
             <div className="user">
+            <div className="heading-container">
+                <h2 className="heading-secondary">Edit and Remove User</h2>
+            </div>
+            <div className="user__table">
             {
                 users.length ?
                 users.map(
                         user => 
                         <div className="user__row" key={user.Username}>
-                            <input className="user__cell" type="text" name={`${user.Username}_Username`} value={user.Username} onChange={this.editChangeHandler}></input>
-                            <input className="user__cell" type="text" name={`${user.Username}_Firstname`} value={user.Firstname} onChange={this.editChangeHandler}></input>
-                            <input className="user__cell" type="text" name={`${user.Username}_Surname`} value={user.Surname} onChange={this.editChangeHandler}></input>    
-                            <input className="user__cell" type="text" name={`${user.Username}_DateOfBirth`} value={user.DateOfBirth} onChange={this.editChangeHandler}></input>
-                            <input className="user__cell" type="text" name={`${user.Username}_PhoneNumber`} value={user.PhoneNumber} onChange={this.editChangeHandler}></input>
-                            <input className="user__cell" type="text" name={`${user.Username}_Email`} value={user.Email} onChange={this.editChangeHandler}></input>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name={`${user.Username}_Username`} value={user.Username} onChange={this.editChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name={`${user.Username}_Firstname`} value={user.Firstname} onChange={this.editChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name={`${user.Username}_Surname`} value={user.Surname} onChange={this.editChangeHandler}></input>    
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="date" name={`${user.Username}_DateOfBirth`} value={user.DateOfBirth} onChange={this.editChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name={`${user.Username}_PhoneNumber`} value={user.PhoneNumber} onChange={this.editChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="email" name={`${user.Username}_Email`} value={user.Email} onChange={this.editChangeHandler}></input>
+                        </div>
 
                             <form className="user__cell" onSubmit={this.putSubmitHandler} name={user.Username}>
-                                <button class="user__btn" type="submit">Confirm Changes</button>
+                                <button class="user__btn user__btn--primary" type="submit">Edit</button>
                             </form>
 
                             <form ClassName="user__cell" onSubmit={this.deleteSubmitHandler} name={user.Username}>
-                                <button class="user__btn" type="submit">Delete</button>
+                                <button class="user__btn user__btn--secondary" type="submit">Remove</button>
                             </form>
 
                         </div>
                     ) 
                 : null
             }
+            </div>
+            <div className="heading-container">
+                <h2 className="heading-secondary">New User</h2>
+            </div>
+            <div className="user__table">
                     <div className="user__row">
-                        <input className="user__cell" type="text" name="newUsername" value={newUsername} onChange={this.newChangeHandler}></input>
-                        <input className="user__cell" type="text" name="newFirstname" value={newFirstname} onChange={this.newChangeHandler}></input>
-                        <input className="user__cell" type="text" name="newSurname" value={newSurname} onChange={this.newChangeHandler}></input>
-                        <input className="user__cell" type="text" name="newDateOfBirth" value={newDateOfBirth} onChange={this.newChangeHandler}></input>
-                        <input className="user__cell" type="text" name="newPhoneNumber" value={newPhoneNumber} onChange={this.newChangeHandler}></input>
-                        <input className="user__cell" type="text" name="newEmail" value={newEmail} onChange={this.newChangeHandler}></input>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name="newUsername" value={newUsername} placeholder="username" onChange={this.newChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name="newFirstname" value={newFirstname} placeholder="firstname" onChange={this.newChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name="newSurname" value={newSurname} placeholder="surname" onChange={this.newChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="date" name="newDateOfBirth" value={newDateOfBirth} placeholder="date of birth" onChange={this.newChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="text" name="newPhoneNumber" value={newPhoneNumber} placeholder="phone number" onChange={this.newChangeHandler}></input>
+                        </div>
+                        <div className="user__cell">
+                            <input className="user__input" type="email" name="newEmail" value={newEmail} placeholder="email" onChange={this.newChangeHandler}></input>
+                        </div>
                         <form className="user__cell" onSubmit={this.newSubmitHandler}>
-                            <button class="user__btn" type="submit">Submit</button>
+                            <button class="user__btn user__btn--primary" type="submit">Create</button>
                         </form>
                     </div>
+            </div>
                 {
                     messageText ? 
-                    <div>
-                        <p>{this.state.messageText}</p>
+                    <div className={`message-card ${this.state.messageStyleClass}`} >
+                        <p className="message-card__text">{this.state.messageText}</p>
                     </div>
                     : null
                 }
-                </div>
+            </div>
             </>
         )
     }

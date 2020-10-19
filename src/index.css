@@ -1,13 +1,134 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* colors */
+
+/* blue-primary: #1982c4 */
+/* blue-light: #66CFFF */
+
+/* red-primary: #ff595e */
+/* red-light: #FFA6AB */
+
+
+
+/* ------------------------------------------------------------------------------  */
+/* ---------- INITIAL SETUP ---------- */
+/* ------------------------------------------------------------------------------  */
+*{
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', 'sans-serif';
+    color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html{
+    /* base rem size 10px */
+    font-size: 62.5%;
+}
+
+.heading-container{
+  display: flex;
+}
+
+.heading-secondary{
+  margin: 3rem auto;
+  margin-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: 300;
+
+}
+/* ------------------------------------------------------------------------------  */
+/* ---------- USER ---------- */
+/* ------------------------------------------------------------------------------  */
+.user{
+  display: flex;
+  flex-direction: column;
+  margin:auto;
+  width: 130rem;
+}
+
+.user__table{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+  transition: 1s;
+}
+
+.user__row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.user__cell{
+  display: flex;
+  padding: .2rem;
+}
+
+.user__input{
+  border:none;
+  background: #eee;
+  text-align: center;
+  width: 20rem;
+  height: 5rem;
+  border-radius: 3px;
+  transition: .3s;
+}
+
+.user__input:hover{
+  background: #f3f3f3;
+}
+
+.user__btn{
+  background: none;
+  width: 7rem;
+  height: 5rem;
+  border-radius: 3px;
+  transition: .3s;
+  margin-right: .2rem;
+}
+
+.user__btn--primary{
+  border: 1px solid #1982c4;
+}
+
+.user__btn--secondary{
+  border: 1px solid #ff595e;
+}
+
+.user__btn--primary:hover{
+  background-color: #1982c4;
+  color: #fff;
+}
+
+.user__btn--secondary:hover{
+  background-color: #ff595e;
+  color: #fff;
+}
+
+.message-card{
+  display: flex;
+  justify-content: center;
+  background: #eee;
+  padding: 5rem 2rem;
+  width: 70rem;
+  margin: auto;
+  border-radius: 9px;
+}
+
+.message-card__text{
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  word-spacing: .2rem;
+  color: #fff;
+}
+
+.message-card--success{
+  background: #66CFFF;
+}
+
+.message-card--fail{
+  background: #FFA6AB;
 }
