@@ -1,3 +1,4 @@
+# A front end for the InTouch app
 # Installation Instructions
 
 First ensure npm is installed 
