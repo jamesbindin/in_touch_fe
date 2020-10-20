@@ -1,17 +1,22 @@
-import Axios from 'axios'
 import React, { Component } from 'react'
 import axios from 'axios'
 
+// the user component is responsible for crud opperations on users. It has methods for api calls
+// and is responsible for displaying, updating the data. It displays error and success messages.
 export default class Users extends Component {
+
     constructor(props) {
         super(props)
 
         this.state = {
+            // api call info 
             url:'http://127.0.0.1:8000/api/user',
             headers:{'Authorization':'Bearer 62ac546c-1eb6-477c-8d7c-ad676b6609cf'},
 
+            // stores current users
             users: [],
 
+            // for new user used in post call 
             newUsername: '',
             newFirstname: '',
             newSurname: '',
@@ -19,19 +24,22 @@ export default class Users extends Component {
             newPhoneNumber: '',
             newEmail: '',
 
+            // success and error message: the text and css class
             messageText: '',
             messageStyleClass: ''
         }
 
-        this.changeMessageText = this.changeMessageText.bind(this)
+        // this.changeMessageText = this.changeMessageText.bind(this)
     }
 
 
+    // calls api to display all users when loaded
     componentDidMount(){
         this.getAllUsers()
     }
     
 
+    // method thats reused to retrieve users using api call
     getAllUsers(){
         axios.get(
             this.state.url, {
@@ -47,14 +55,19 @@ export default class Users extends Component {
     }
 
 
+    // response is given to the method and the error or success message is extracted and stored
+    // the css class is also determined from the response 
     changeMessageText(response){
         let message = response.data.message
         let messageClass = 'message-card--success'
 
-        if(!response.data.success && typeof message != 'string'){
-            message = message[Object.keys(message)[0]].toString()
+        if(!response.data.success){
             messageClass = 'message-card--fail'
+
+        if(!response.data.success && typeof message!= 'string'){
+            message = message[Object.keys(message)[0]].toString()
         }  
+    }
 
         this.setState({
             messageText: message,
@@ -63,11 +76,14 @@ export default class Users extends Component {
 
     }
 
+
+    // handles changes made to new user form and changes state
     newChangeHandler = e => {
         this.setState({[e.target.name] : e.target.value})
     }
     
 
+    // handles submission for new user
     newSubmitHandler = e => {
         e.preventDefault()
         axios.post(this.state.url, {
@@ -93,10 +109,13 @@ export default class Users extends Component {
     }
 
 
+    // handles changes made to users on the form. the state is changed as this happens
     editChangeHandler = e => {
+        // the field name stores the username and fieldname to make unique.
         let splitName = e.target.name.split('_')
         let username = splitName[0];
         let field = splitName[1]
+
         let tempUsers = this.state.users 
         this.state.users.forEach((element, i ) => {
            if(element.Username == username){
@@ -110,6 +129,7 @@ export default class Users extends Component {
     }
 
 
+    // handles edit user submission calls api using put
     putSubmitHandler = e => {
         e.preventDefault()
         let user = this.state.users.find(element => element.Username == e.target.name)
@@ -137,6 +157,7 @@ export default class Users extends Component {
     }
 
 
+    // handles delete form submission. calls the api 
     deleteSubmitHandler = e => {
         e.preventDefault()
         let userName = e.target.name
@@ -157,10 +178,13 @@ export default class Users extends Component {
     }
 
 
+    // render function
     render() {
+        // storing state variables
         const {users} = this.state
         const {newUsername, newFirstname, newSurname, newDateOfBirth, newPhoneNumber, newEmail} = this.state 
         const {messageText} = this.state
+
         return (
             <>
 
@@ -169,6 +193,7 @@ export default class Users extends Component {
                 <h2 className="heading-secondary">Edit and Remove User</h2>
             </div>
             <div className="user__table">
+            {/* itterate over users and display on table for editing and deleting*/}
             {
                 users.length ?
                 users.map(
@@ -206,9 +231,12 @@ export default class Users extends Component {
                 : null
             }
             </div>
+
             <div className="heading-container">
                 <h2 className="heading-secondary">New User</h2>
             </div>
+
+            {/* table for adding new user */}
             <div className="user__table">
                     <div className="user__row">
                         <div className="user__cell">
@@ -234,6 +262,8 @@ export default class Users extends Component {
                         </form>
                     </div>
             </div>
+
+            {/* message for error or success section */}
                 {
                     messageText ? 
                     <div className={`message-card ${this.state.messageStyleClass}`} >
