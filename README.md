@@ -5,7 +5,7 @@ First ensure npm is installed
 
 change directory to the root of the project and enter the following commands:
 
-$npm install
+$npm install <br/>
 $npm start
 
 A browser should display the app
